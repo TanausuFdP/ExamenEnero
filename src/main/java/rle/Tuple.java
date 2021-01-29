@@ -11,4 +11,8 @@ public class Tuple {
         this.count = 1;
         this.character = character;
     }
+
+    public void addCount() {
+        count++;
+    }
 }
