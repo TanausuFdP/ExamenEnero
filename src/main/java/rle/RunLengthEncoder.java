@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class RunLenghtEncode {
+public class RunLengthEncoder {
 
     public List<Tuple> encode(String decodedSentence){
         return encode(Arrays.stream(decodedSentence.split("")));
@@ -21,7 +21,20 @@ public class RunLenghtEncode {
         return result;
     }
 
-    public String decode(Stream<Tuple> tuplesStream){
-        return "";
+    public String decode(List<Tuple> tupleList){
+        return decode(tupleList.stream());
+    }
+
+    private String decode(Stream<Tuple> tuplesStream){
+        return tuplesStream.reduce("", this::decodeTuple, (a1, a2) -> null);
+    }
+
+    private String decodeTuple(String string, Tuple tuple) {
+        StringBuilder stringBuilder = new StringBuilder(string);
+        for (int i = 0; i < tuple.getCount(); i++) {
+            stringBuilder.append(tuple.getCharacter());
+        }
+        string = stringBuilder.toString();
+        return string;
     }
 }
